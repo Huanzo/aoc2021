@@ -26,7 +26,7 @@ end
 function _setup_aoc(year, day)
   path = _data_path(day)
   if isfile(path)
-  	return
+    return
   end
   open(path, "w") do f
     write(f, _get_input(year, day))
@@ -35,14 +35,14 @@ end
 
 
 function _run_parts(day)
-	if isdefined(Main, :p1)
+  if isdefined(Main, :p1)
     p1_res = @time Main.p1(_input(day))
     @info "Part 1: $p1_res"
   else
     @info "p1() not defined. skipping..."
   end
 
-	if isdefined(Main, :p2)
+  if isdefined(Main, :p2)
     p2_res = @time Main.p2(_input(day))
     @info "Part 2: $p2_res"
   else
