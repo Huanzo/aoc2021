@@ -25,9 +25,9 @@ end
 
 function _setup_aoc(year, day)
   path = _data_path(day)
-	if isfile(path)
-		return
-	end
+  if isfile(path)
+  	return
+  end
   open(path, "w") do f
     write(f, _get_input(year, day))
   end

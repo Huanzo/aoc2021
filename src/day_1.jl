@@ -5,6 +5,8 @@ function p1(input)
 	nothing
 end
 
-p2(input) = nothing
+function p2(input)
+
+end
 
 @aoc(2021, 1)
