@@ -1,8 +1,8 @@
 include(joinpath(readchomp(`git rev-parse --show-toplevel`), "aoc.jl"))
 import .Aoc: @aoc
 
-function sliding(in, w)
-	((@view in[i:i+w-1]) for i in 1:1:length(in)-w+1)
+function sliding(in, w::Int64; step::Int = 1)
+	((@view in[i:i+w-1]) for i in 1:step:length(in)-w+1)
 end
 
 function day1(in, w)
@@ -17,12 +17,12 @@ function day1(in, w)
 	c
 end
 
-function p1(input)
+function p1(input::Vector{String})
 	day1(input, 1)
 end
 
 
-function p2(input)
+function p2(input::Vector{String})
 	day1(input, 3)
 end
 
