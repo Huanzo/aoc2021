@@ -35,15 +35,29 @@ end
 
 
 function _run_parts(day)
+  input = _input(day)
+  if "precompile" ∈ ARGS
+    @info "precompilation is on"
+  end
   if isdefined(Main, :p1)
-    p1_res = @time Main.p1(_input(day))
+    if "precompile" ∈ ARGS
+      i = copy(input)
+      Main.p1(i)
+    end
+    i = copy(input)
+    p1_res = @time Main.p1(i)
     @info "Part 1: $p1_res"
   else
     @info "p1() not defined. skipping..."
   end
 
   if isdefined(Main, :p2)
-    p2_res = @time Main.p2(_input(day))
+    if "precompile" ∈ ARGS
+      i = copy(input)
+      Main.p2(i)
+    end
+    i = copy(input)
+    p2_res = @time Main.p2(i)
     @info "Part 2: $p2_res"
   else
     @info "p2() not defined. skipping..."

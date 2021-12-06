@@ -3,21 +3,15 @@ import .Aoc: @aoc
 using Pipe: @pipe
 
 
-function solve(input, days)
+function solve(input::Vector{String}, days::Int64)
 	fish = @pipe split(input[1], ",") |> parse.(Int, _)
-	state = Dict{Int, Int}([ [x, 0] for x in 0:8 ])
+	state = Dict{Int, Int}([ [x, count(==(x), fish)] for x in 0:8 ])
 
-	for f in fish
-		state[f] += 1
-	end
-	
-	for d in 1:days
+	for _ in 1:days
 		next_day = Dict{Int, Int}([ [x, 0] for x in 0:8 ])
-		next_day[8] = get(state, 0, 0)
-		next_day[6] = get(state, 0, 0)
+		next_day[8] = next_day[6] = state[0]
 		for i in 0:7
-			k = get(state, i+1, 0)
-			next_day[i] += k
+			next_day[i] += state[i+1]
 		end
 		state = next_day
 	end
