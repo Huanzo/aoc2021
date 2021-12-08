@@ -19,32 +19,35 @@ function p1(input::Vector{String})
 	return count
 end
 
-function p2(input::Vector{String})
-	count = 0
-	map = Dict{String, Int}(
-													"abcdeg" => 0,
-													"ab" => 1,
-													"acdfg" => 2,
-													"" => 0,
-													"abcdeg" => 0,
-													"abcdeg" => 0,
-													"abcdeg" => 0,
-													"abcdeg" => 0,
-													"abcdeg" => 0,
-													"abcdeg" => 0,
-												 )
-	for l in input
-		dict = Dict{Char, Int}()
-		i = @pipe split(l, "|")[begin] |> split(_, " ") |> filter(!=(""), _)
-		o = @pipe split(l, "|")[end] |> split(_, " ") |> filter(!=(""), _)
-		good = 
-		for d in inputdigits
-			if length(d) == 3
-				find(==(3))
-			end
-
+function get_digit(i, o, digits)
+	for permutation in Combinatorics.permutations("abcdefg")
+		dict = Dict([[x, y] for (x,y) in zip(permutation, "abcdefg")])
+		if all([ x in keys(digits) for x in map(x -> (join(sort([dict[y] for y in x]))), i)])
+			return parse(Int, join([ digits[join(sort([dict[y] for y in x]))] for x in o]))
 		end
 	end
+end
+
+function p2(input::Vector{String})
+	sum = 0
+	dict = Dict{String, Int}(
+		"abcefg" => 0,
+		"cf" => 1,
+		"acdeg" => 2,
+		"acdfg" => 3,
+		"bcdf" => 4,
+		"abdfg" => 5,
+		"abdefg" => 6,
+		"acf" => 7,
+		"abcdefg" => 8,
+		"abcdfg" => 9
+	)
+	for l in input
+		i = @pipe split(l, "|")[begin] |> split(_, " ") |> filter(!=(""), _)
+		o = @pipe split(l, "|")[end] |> split(_, " ") |> filter(!=(""), _)
+		sum+=get_digit(i,o,dict)
+	end
+	return sum
 end
 
 @aoc(2021, 8)
