@@ -23,7 +23,6 @@ function p1(input::Vector{String})
 end
 
 function simulate(position, score, mul, scores)
-	length(scores) == 0 && return
 	s = popfirst!(scores)
 	for (throw, chances) in [(3, 1),(4, 3),(5, 6),(6, 7),(7, 6),(8, 3),(9, 1)]
 		position2 = (position + throw) % 10
@@ -42,9 +41,9 @@ end
 function p2(input::Vector{String})
 	p = prepare_input(input)
 	
-	s1 = [ [0,0] for _ in 1:21 ]
+	s1 = [ [0,0] for _ in 1:11 ]
 	simulate(p[1], 0, 1, s1)
-	s2 = [ [0,0] for _ in 1:21 ]
+	s2 = [ [0,0] for _ in 1:11 ]
 	simulate(p[2], 0, 1, s2)
 
 	w1 = sum(map(x -> x[1][1] * x[2][2], zip(s1[2:end], s2)))
